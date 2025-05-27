@@ -1,7 +1,6 @@
 import Timer from './Timer';
 import Answers from './Answers';
 import { useState } from 'react';
-const TIMER_DURATION = 10000;
 import QUESTIONS from '../questions';
 
 export default function Question({ questionIndex, onTimeout, onAnswerSelect }) {
@@ -10,7 +9,13 @@ export default function Question({ questionIndex, onTimeout, onAnswerSelect }) {
     isCorrect: null,
   });
 
+  //   retrieving question information
   const question = QUESTIONS[questionIndex];
+
+  //   setting timers
+  let timer = 10000;
+  answer.selectedAnswer && (timer = 1000);
+  answer.isCorrect !== null && (timer = 2000); //moving to the next question
 
   const handleSelectAnswer = function (answer) {
     setAnswer({
@@ -38,7 +43,12 @@ export default function Question({ questionIndex, onTimeout, onAnswerSelect }) {
   }
   return (
     <div id="question">
-      <Timer onTimeout={onTimeout} timeout={TIMER_DURATION} />
+      <Timer
+        key={timer}
+        onTimeout={answer.selectedAnswer === '' ? onTimeout : null}
+        timeout={timer}
+        mode={answerState}
+      />
       <h2>{question.id.toUpperCase() + ': ' + question.text}</h2>
       <Answers
         answers={question.answers}

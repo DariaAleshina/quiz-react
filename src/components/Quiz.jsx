@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import CompleteView from './CompleteView';
 import Question from './Question';
 import QUESTIONS from '../questions';
+import Summary from './Summary';
 
 export default function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
@@ -20,9 +21,7 @@ export default function Quiz() {
   const handleTimeoutExpire = useCallback(() => handleAnswerClick(null), []);
 
   const quizIsComplete = QUESTIONS.length === activeQuestionIndex;
-  if (quizIsComplete) {
-    return <CompleteView />;
-  }
+  if (quizIsComplete) return <Summary userAnswers={userAnswers} />;
 
   return (
     <div id="quiz">
