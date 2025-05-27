@@ -4,17 +4,19 @@ export default function Answers({
   answers,
   selectedAnswer,
   answerState,
-  onAnswerSelect,
+  onSelect,
 }) {
   const shuffledAnswers = useRef();
   if (!shuffledAnswers.current) {
     shuffledAnswers.current = [...answers].sort(() => Math.random() - 0.5);
   }
+
   return (
     <ul id="answers">
       {shuffledAnswers.current.map(answer => {
         const isSelected = selectedAnswer === answer;
         let buttonStyling = '';
+
         if (isSelected) {
           if (answerState === 'answered') buttonStyling = 'selected';
           if (answerState === 'correct' || answerState === 'wrong')
@@ -24,8 +26,9 @@ export default function Answers({
         return (
           <li key={answer} className="answer">
             <button
-              onClick={() => onAnswerSelect(answer)}
+              onClick={() => onSelect(answer)}
               className={buttonStyling}
+              disabled={answerState !== ''}
             >
               {answer}
             </button>

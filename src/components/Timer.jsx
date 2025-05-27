@@ -14,8 +14,8 @@ export default function Timer({ timeout, onTimeout }) {
   useEffect(() => {
     const interval = setInterval(() => {
       console.log('interval set!');
-      setRemainingTime(prevRemainingTime => prevRemainingTime - 100);
-    }, 100);
+      setRemainingTime(prevRemainingTime => prevRemainingTime - 10);
+    }, 10);
 
     return () => {
       clearInterval(interval);
