@@ -1,12 +1,10 @@
 import { useState, useCallback } from 'react';
-import CompleteView from './CompleteView';
 import Question from './Question';
 import QUESTIONS from '../questions';
 import Summary from './Summary';
 
 export default function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
-
   const activeQuestionIndex = userAnswers.length;
 
   const handleAnswerClick = useCallback(
